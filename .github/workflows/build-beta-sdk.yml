@@ -24,6 +24,10 @@ jobs:
         run: echo '##[set-output name=sha;]$(git rev-parse --short "$GITHUB_SHA")'
         id: extract_version
 
+      - name: Pull Upstream Changes
+        run: |
+          git pull https://github.com/meraki/dashboard-api-python.git master
+
       - name: Building SDK
         run: |
           pip install -r requirements.txt
