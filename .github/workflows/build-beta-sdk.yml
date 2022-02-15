@@ -27,9 +27,10 @@ jobs:
       - name: Pull Upstream Changes
         run: |
           rm -rf meraki
-          git pull  --rebase https://github.com/meraki/dashboard-api-python.git master
-          git add .
-          git commit 'upstream changes'
+          git add . 
+          git commit 'removing local build'
+          git pull  --rebase --autostash https://github.com/meraki/dashboard-api-python.git master
+  
 
       - name: Building SDK
         run: |
