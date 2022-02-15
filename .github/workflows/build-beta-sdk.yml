@@ -28,7 +28,7 @@ jobs:
         run: |
           rm -rf meraki
           git add . 
-          git commit 'removing local build'
+          git commit -m 'removing local build'
           git pull  --rebase --autostash https://github.com/meraki/dashboard-api-python.git master
   
 
