@@ -1,0 +1,40 @@
+name: build-and-push-meraki-beta-sdk
+on:
+  push:
+    branches:
+      - master
+
+env:
+  BOUNDLESS_ORG_ID: 849070
+
+
+jobs:
+  build-and-push-meraki-beta-sdk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+     
+      - name: Extract branch name
+        shell: bash
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        id: extract_branch
+
+      - name: Extract commit SHA
+        shell: bash
+        run: echo '##[set-output name=sha;]$(git rev-parse --short "$GITHUB_SHA")'
+        id: extract_version
+
+      - name: Setting environment variables and paths
+        run: |
+          pip install -r requirements.txt
+          rm -rf meraki
+          cd generator
+          python generate_library -o ${{ env.BOUNDLESS_ORG_ID}} -k ${{ secrets.MERAKI_DASHBOARD_API_KEY_BOUNDLESS }}
+
+          mv meraki ../
+          cd ..
+
+
+
+      - name: Deploment done
+        run: echo "Deployment of $(git rev-parse --verify HEAD) to ${{ env.BUILD_ENVIRONMENT }} finished at $(date)"
