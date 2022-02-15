@@ -33,7 +33,7 @@ jobs:
           # git add . 
           # git commit -m 'removing local build'
           git pull  --rebase --autostash https://github.com/meraki/dashboard-api-python.git master
-          git rm meraki
+          git rm -r meraki
           git rebase --continue
   
 
