@@ -24,17 +24,17 @@ jobs:
         run: echo '##[set-output name=sha;]$(git rev-parse --short "$GITHUB_SHA")'
         id: extract_version
 
-      - name: Pull Upstream Changes
-        run: |
-          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
+      # - name: Pull Upstream Changes
+      #   run: |
+      #     git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+      #     git config --local user.name "github-actions[bot]"
 
-          git rm -r meraki
-          git add . 
-          git commit -m 'removing local build'
-          git pull  --rebase --autostash https://github.com/meraki/dashboard-api-python.git master
-          git rm -r meraki
-          git rebase --continue
+      #     git rm -r meraki
+      #     git add . 
+      #     git commit -m 'removing local build'
+      #     git pull  --rebase --autostash https://github.com/meraki/dashboard-api-python.git master
+      #     git rm -r meraki
+      #     git rebase --continue
   
 
       - name: Building SDK
