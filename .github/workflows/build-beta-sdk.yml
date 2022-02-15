@@ -24,7 +24,7 @@ jobs:
         run: echo '##[set-output name=sha;]$(git rev-parse --short "$GITHUB_SHA")'
         id: extract_version
 
-      - name: Setting environment variables and paths
+      - name: Building SDK
         run: |
           pip install -r requirements.txt
           rm -rf meraki
@@ -34,7 +34,17 @@ jobs:
           mv meraki ../
           cd ..
 
+    - name: Commit files
+      run: |
+        git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        git commit -m "Add changes" -a
+        
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: ${{ github.ref }}
 
-
-      - name: Deploment done
+      - name: Publishing SDK done
         run: echo "Deployment of $(git rev-parse --verify HEAD) to ${{ env.BUILD_ENVIRONMENT }} finished at $(date)"
