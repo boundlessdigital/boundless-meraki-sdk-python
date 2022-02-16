@@ -1531,30 +1531,6 @@ class AsyncOrganizations:
         
 
 
-    def releaseFromOrganizationInventory(self, organizationId: str, **kwargs):
-        """
-        **Release a list of claimed devices from an organization.**
-        https://developer.cisco.com/meraki/api-v1/#!release-from-organization-inventory
-
-        - organizationId (string): (required)
-        - serials (array): Serials of the devices that should be released
-        """
-
-        kwargs.update(locals())
-
-        metadata = {
-            'tags': ['organizations', 'configure', 'inventory'],
-            'operation': 'releaseFromOrganizationInventory'
-        }
-        resource = f'/organizations/{organizationId}/inventory/release'
-
-        body_params = ['serials', ]
-        payload = {k.strip(): v for k, v in kwargs.items() if k.strip() in body_params}
-
-        return self._session.post(metadata, resource, payload)
-        
-
-
     def getOrganizationInventoryDevices(self, organizationId: str, total_pages=1, direction='next', **kwargs):
         """
         **Return the device inventory for an organization**
@@ -1566,7 +1542,7 @@ class AsyncOrganizations:
         - perPage (integer): The number of entries per page returned. Acceptable range is 3 - 1000. Default is 1000.
         - startingAfter (string): A token used by the server to indicate the start of the page. Often this is a timestamp or an ID but it is not limited to those. This parameter should not be defined by client applications. The link for the first, last, prev, or next page in the HTTP Link header should define it.
         - endingBefore (string): A token used by the server to indicate the end of the page. Often this is a timestamp or an ID but it is not limited to those. This parameter should not be defined by client applications. The link for the first, last, prev, or next page in the HTTP Link header should define it.
-        - usedState (string): Filter results by used or unused inventory. Accepted values are "used" or "unused".
+        - usedState (string): Filter results by used or unused inventory. Accepted values are 'used' or 'unused'.
         - search (string): Search for devices in inventory based on serial number, mac address, or model.
         - macs (array): Search for devices in inventory based on mac addresses.
         - networkIds (array): Search for devices in inventory based on network ids.
@@ -1587,10 +1563,10 @@ class AsyncOrganizations:
             assert kwargs['tagsFilterType'] in options, f'''"tagsFilterType" cannot be "{kwargs['tagsFilterType']}", & must be set to one of: {options}'''
 
         metadata = {
-            'tags': ['organizations', 'configure', 'inventoryDevices'],
+            'tags': ['organizations', 'configure', 'inventory', 'devices'],
             'operation': 'getOrganizationInventoryDevices'
         }
-        resource = f'/organizations/{organizationId}/inventoryDevices'
+        resource = f'/organizations/{organizationId}/inventory/devices'
 
         query_params = ['perPage', 'startingAfter', 'endingBefore', 'usedState', 'search', 'macs', 'networkIds', 'serials', 'models', 'tags', 'tagsFilterType', 'productTypes', ]
         params = {k.strip(): v for k, v in kwargs.items() if k.strip() in query_params}
@@ -1615,12 +1591,36 @@ class AsyncOrganizations:
         """
 
         metadata = {
-            'tags': ['organizations', 'configure', 'inventoryDevices'],
+            'tags': ['organizations', 'configure', 'inventory', 'devices'],
             'operation': 'getOrganizationInventoryDevice'
         }
-        resource = f'/organizations/{organizationId}/inventoryDevices/{serial}'
+        resource = f'/organizations/{organizationId}/inventory/devices/{serial}'
 
         return self._session.get(metadata, resource)
+        
+
+
+    def releaseFromOrganizationInventory(self, organizationId: str, **kwargs):
+        """
+        **Release a list of claimed devices from an organization.**
+        https://developer.cisco.com/meraki/api-v1/#!release-from-organization-inventory
+
+        - organizationId (string): (required)
+        - serials (array): Serials of the devices that should be released
+        """
+
+        kwargs.update(locals())
+
+        metadata = {
+            'tags': ['organizations', 'configure', 'inventory'],
+            'operation': 'releaseFromOrganizationInventory'
+        }
+        resource = f'/organizations/{organizationId}/inventory/release'
+
+        body_params = ['serials', ]
+        payload = {k.strip(): v for k, v in kwargs.items() if k.strip() in body_params}
+
+        return self._session.post(metadata, resource, payload)
         
 
 
