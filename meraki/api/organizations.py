@@ -780,7 +780,7 @@ class Organizations(object):
         kwargs.update(locals())
 
         if 'type' in kwargs:
-            options = ['voipJitter', 'voipPacketLoss', 'voipMos', 'wanLatency', 'wanPacketLoss', 'wanUtilization', 'wanStatus']
+            options = ['voipJitter', 'voipPacketLoss', 'voipMos', 'wanLatency', 'wanPacketLoss', 'wanUtilization', 'wanStatus', 'appOutage']
             assert kwargs['type'] in options, f'''"type" cannot be "{kwargs['type']}", & must be set to one of: {options}'''
 
         metadata = {
@@ -814,7 +814,7 @@ class Organizations(object):
         kwargs.update(locals())
 
         if 'type' in kwargs:
-            options = ['voipJitter', 'voipPacketLoss', 'voipMos', 'wanLatency', 'wanPacketLoss', 'wanUtilization', 'wanStatus']
+            options = ['voipJitter', 'voipPacketLoss', 'voipMos', 'wanLatency', 'wanPacketLoss', 'wanUtilization', 'wanStatus', 'appOutage']
             assert kwargs['type'] in options, f'''"type" cannot be "{kwargs['type']}", & must be set to one of: {options}'''
 
         metadata = {
