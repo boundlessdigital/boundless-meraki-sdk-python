@@ -1344,24 +1344,6 @@ class AsyncOrganizations:
         
 
 
-    def getOrganizationDeviceStatuses(self, organizationId: str):
-        """
-        **List the status of every Meraki device in the organization**
-        https://developer.cisco.com/meraki/api-v1/#!get-organization-device-statuses
-
-        - organizationId (string): (required)
-        """
-
-        metadata = {
-            'tags': ['organizations', 'configure', 'deviceStatuses'],
-            'operation': 'getOrganizationDeviceStatuses'
-        }
-        resource = f'/organizations/{organizationId}/deviceStatuses'
-
-        return self._session.get(metadata, resource)
-        
-
-
     def getOrganizationDevices(self, organizationId: str, total_pages=1, direction='next', **kwargs):
         """
         **List the devices in an organization**
