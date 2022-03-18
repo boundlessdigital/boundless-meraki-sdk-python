@@ -160,6 +160,25 @@ class Sensor(object):
         
 
 
+    def deleteNetworkSensorAutomation(self, networkId: str, id: str):
+        """
+        **Deletes a sensor automation.**
+        https://developer.cisco.com/meraki/api-v1/#!delete-network-sensor-automation
+
+        - networkId (string): (required)
+        - id (string): (required)
+        """
+
+        metadata = {
+            'tags': ['sensor', 'configure', 'automations'],
+            'operation': 'deleteNetworkSensorAutomation'
+        }
+        resource = f'/networks/{networkId}/sensor/automations/{id}'
+
+        return self._session.delete(metadata, resource)
+        
+
+
     def getNetworkSensorRelationships(self, networkId: str):
         """
         **List the sensor roles for devices in a given network**
