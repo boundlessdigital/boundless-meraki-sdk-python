@@ -2103,6 +2103,7 @@ class Organizations(object):
         - total_pages (integer or string): use with perPage to get total results up to total_pages*perPage; -1 or "all" for all pages
         - direction (string): direction to paginate, either "next" (default) or "prev" page
         - configTemplateId (string): An optional parameter that is the ID of a config template. Will return all networks bound to that template.
+        - isBoundToConfigTemplate (boolean): An optional parameter to filter config template bound networks. If configTemplateId is set, this cannot be false.
         - tags (array): An optional parameter to filter networks by tags. The filtering is case-sensitive. If tags are included, 'tagsFilterType' should also be included (see below).
         - tagsFilterType (string): An optional parameter of value 'withAnyTags' or 'withAllTags' to indicate whether to return networks which contain ANY or ALL of the included tags. If no type is included, 'withAnyTags' will be selected.
         - perPage (integer): The number of entries per page returned. Acceptable range is 3 - 100000. Default is 1000.
@@ -2122,7 +2123,7 @@ class Organizations(object):
         }
         resource = f'/organizations/{organizationId}/networks'
 
-        query_params = ['configTemplateId', 'tags', 'tagsFilterType', 'perPage', 'startingAfter', 'endingBefore', ]
+        query_params = ['configTemplateId', 'isBoundToConfigTemplate', 'tags', 'tagsFilterType', 'perPage', 'startingAfter', 'endingBefore', ]
         params = {k.strip(): v for k, v in kwargs.items() if k.strip() in query_params}
 
         array_params = ['tags', ]
