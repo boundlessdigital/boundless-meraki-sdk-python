@@ -568,7 +568,7 @@ Cannot be applied to a port on a switch bound to profile.
 
     def updateNetworkSwitchDhcpServerPolicy(self, networkId: str, **kwargs):
         """
-        **Update the DHCP server policy**
+        **Update the DHCP server settings**
         https://developer.cisco.com/meraki/api-v1/#!update-network-switch-dhcp-server-policy
 
         - networkId (string): (required)
