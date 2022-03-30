@@ -162,7 +162,7 @@ class AsyncSensor:
 
     def deleteNetworkSensorAutomation(self, networkId: str, id: str):
         """
-        **Deletes a sensor automation.**
+        **Delete a sensor automation.**
         https://developer.cisco.com/meraki/api-v1/#!delete-network-sensor-automation
 
         - networkId (string): (required)
@@ -341,7 +341,7 @@ class AsyncSensor:
         - timespan (number): The timespan for which the information will be fetched. If specifying timespan, do not specify parameters t0 and t1. The value must be in seconds and be less than or equal to 7 days. The default is 2 hours.
         - networkIds (array): Optional parameter to filter readings by network.
         - serials (array): Optional parameter to filter readings by sensor.
-        - metrics (array): Types of sensor readings to retrieve. If no metrics are supplied, all available types of readings will be retrieved. Allowed values are temperature, humidity, water, door, and battery.
+        - metrics (array): Types of sensor readings to retrieve. If no metrics are supplied, all available types of readings will be retrieved. Allowed values are temperature, humidity, water, door, tvoc, pm25, noise, indoorAirQuality, button, and battery.
         """
 
         kwargs.update(locals())
@@ -382,8 +382,8 @@ class AsyncSensor:
         - interval (integer): The time interval in seconds for returned data. The valid intervals are: 120, 3600, 14400, 86400. The default is 86400.
         - networkIds (array): Optional parameter to filter readings by network.
         - serials (array): Optional parameter to filter readings by sensor.
-        - metrics (array): Types of sensor readings to retrieve. If no metrics are supplied, all available types of readings will be retrieved. Allowed values are temperature, humidity, water, door, and battery.
-        - models (array): Optional parameter to filter readings by one or more models. Allowed values are MT10, MT11, MT12, and MT20.
+        - metrics (array): Types of sensor readings to retrieve. If no metrics are supplied, all available types of readings will be retrieved. Allowed values are temperature, humidity, water, door, tvoc, pm25, noise, indoorAirQuality, button, and battery.
+        - models (array): Optional parameter to filter readings by one or more models. Allowed values are MT10, MT11, MT12, MT14, MT20, and MT30.
         """
 
         kwargs.update(locals())
@@ -420,7 +420,7 @@ class AsyncSensor:
         - endingBefore (string): A token used by the server to indicate the end of the page. Often this is a timestamp or an ID but it is not limited to those. This parameter should not be defined by client applications. The link for the first, last, prev, or next page in the HTTP Link header should define it.
         - networkIds (array): Optional parameter to filter readings by network.
         - serials (array): Optional parameter to filter readings by sensor.
-        - metrics (array): Types of sensor readings to retrieve. If no metrics are supplied, all available types of readings will be retrieved. Allowed values are temperature, humidity, water, door, and battery.
+        - metrics (array): Types of sensor readings to retrieve. If no metrics are supplied, all available types of readings will be retrieved. Allowed values are temperature, humidity, water, door, tvoc, pm25, noise, indoorAirQuality, button, and battery.
         """
 
         kwargs.update(locals())
