@@ -2164,3 +2164,44 @@ Cannot be applied to a port on a switch bound to profile.
 
         return self._session.post(metadata, resource, payload)
         
+
+
+    def getOrganizationSwitchPortsBySwitch(self, organizationId: str, total_pages=1, direction='next', **kwargs):
+        """
+        **List the switchports in an organization**
+        https://developer.cisco.com/meraki/api-v1/#!get-organization-switch-ports-by-switch
+
+        - organizationId (string): (required)
+        - total_pages (integer or string): use with perPage to get total results up to total_pages*perPage; -1 or "all" for all pages
+        - direction (string): direction to paginate, either "next" (default) or "prev" page
+        - perPage (integer): The number of entries per page returned. Acceptable range is 3 - 100. Default is 100.
+        - startingAfter (string): A token used by the server to indicate the start of the page. Often this is a timestamp or an ID but it is not limited to those. This parameter should not be defined by client applications. The link for the first, last, prev, or next page in the HTTP Link header should define it.
+        - endingBefore (string): A token used by the server to indicate the end of the page. Often this is a timestamp or an ID but it is not limited to those. This parameter should not be defined by client applications. The link for the first, last, prev, or next page in the HTTP Link header should define it.
+        - configurationUpdatedAfter (string): Optional parameter to filter results by switches where the configuration has been updated after the given timestamp
+        - networkIds (array): Optional parameter to filter switchports by network.
+        - name (string): Optional parameter to filter switchports belonging to switches by name. All returned switches will have a name that contains the search term or is an exact match.
+        - mac (string): Optional parameter to filter switchports belonging to switches by MAC address. All returned switches will have a MAC address that contains the search term or is an exact match.
+        - serial (string): Optional parameter to filter switchports belonging to switches by serial number.  All returned switches will have a serial number that contains the search term or is an exact match.
+        - serials (array): Optional parameter to filter switchports belonging to switches with one or more serial numbers. All switchports returned belong to serial numbers of switches that are an exact match.
+        - macs (array): Optional parameter to filter switchports by one or more  MAC addresses belonging to devices. All switchports returned belong to MAC addresses of switches that are an exact match.
+        """
+
+        kwargs.update(locals())
+
+        metadata = {
+            'tags': ['switch', 'configure', 'ports', 'bySwitch'],
+            'operation': 'getOrganizationSwitchPortsBySwitch'
+        }
+        resource = f'/organizations/{organizationId}/switch/ports/bySwitch'
+
+        query_params = ['perPage', 'startingAfter', 'endingBefore', 'configurationUpdatedAfter', 'networkIds', 'name', 'mac', 'serial', 'serials', 'macs', ]
+        params = {k.strip(): v for k, v in kwargs.items() if k.strip() in query_params}
+
+        array_params = ['networkIds', 'serials', 'macs', ]
+        for k, v in kwargs.items():
+            if k.strip() in array_params:
+                params[f'{k.strip()}[]'] = kwargs[f'{k}']
+                params.pop(k.strip())
+
+        return self._session.get_pages(metadata, resource, params, total_pages, direction)
+        
