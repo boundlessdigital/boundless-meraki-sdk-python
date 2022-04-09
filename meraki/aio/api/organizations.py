@@ -943,6 +943,7 @@ class AsyncOrganizations:
     the section on Dashboard). Some properties in this object also accept custom HTML used to replace the section on
     Dashboard; see the documentation for each property to see the allowed values.
  Each property defaults to 'default or inherit' when not provided.
+        - customLogo (object): Properties describing the custom logo attached to the branding policy.
         """
 
         kwargs.update(locals())
@@ -953,7 +954,7 @@ class AsyncOrganizations:
         }
         resource = f'/organizations/{organizationId}/brandingPolicies'
 
-        body_params = ['name', 'enabled', 'adminSettings', 'helpSettings', ]
+        body_params = ['name', 'enabled', 'adminSettings', 'helpSettings', 'customLogo', ]
         payload = {k.strip(): v for k, v in kwargs.items() if k.strip() in body_params}
 
         return self._session.post(metadata, resource, payload)
@@ -1036,6 +1037,7 @@ class AsyncOrganizations:
     the section on Dashboard). Some properties in this object also accept custom HTML used to replace the section on
     Dashboard; see the documentation for each property to see the allowed values.
 
+        - customLogo (object): Properties describing the custom logo attached to the branding policy.
         """
 
         kwargs.update(locals())
@@ -1046,7 +1048,7 @@ class AsyncOrganizations:
         }
         resource = f'/organizations/{organizationId}/brandingPolicies/{brandingPolicyId}'
 
-        body_params = ['name', 'enabled', 'adminSettings', 'helpSettings', ]
+        body_params = ['name', 'enabled', 'adminSettings', 'helpSettings', 'customLogo', ]
         payload = {k.strip(): v for k, v in kwargs.items() if k.strip() in body_params}
 
         return self._session.put(metadata, resource, payload)
@@ -2245,7 +2247,7 @@ class AsyncOrganizations:
         - organizationId (string): (required)
         - name (string): Name of a policy object, unique within the organization (alphanumeric, space, dash, or underscore characters only)
         - category (string): Category of a policy object (one of: adaptivePolicy, network)
-        - type (string): Type of a policy object (one of: fqdn, ipAndMask, cidr, adaptivePolicyIpv4Cidr)
+        - type (string): Type of a policy object (one of: adaptivePolicyIpv4Cidr, fqdn, ipAndMask, cidr)
         - cidr (string): CIDR Value of a policy object (e.g. 10.11.12.1/24")
         - fqdn (string): Fully qualified domain name of policy object (e.g. "example.com")
         - mask (string): Mask of a policy object (e.g. "255.255.0.0")
