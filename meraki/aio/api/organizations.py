@@ -407,25 +407,6 @@ class AsyncOrganizations:
         
 
 
-    def deleteOrganizationAdaptivePolicyGroup(self, organizationId: str, groupId: str):
-        """
-        **Deletes the specified adaptive policy group and any associated policies and references**
-        https://developer.cisco.com/meraki/api-v1/#!delete-organization-adaptive-policy-group
-
-        - organizationId (string): (required)
-        - groupId (string): (required)
-        """
-
-        metadata = {
-            'tags': ['organizations', 'configure', 'adaptivePolicy', 'groups'],
-            'operation': 'deleteOrganizationAdaptivePolicyGroup'
-        }
-        resource = f'/organizations/{organizationId}/adaptivePolicy/groups/{groupId}'
-
-        return self._session.delete(metadata, resource)
-        
-
-
     def updateOrganizationAdaptivePolicyGroup(self, organizationId: str, groupId: str, **kwargs):
         """
         **Updates an adaptive policy group**
@@ -451,6 +432,25 @@ class AsyncOrganizations:
         payload = {k.strip(): v for k, v in kwargs.items() if k.strip() in body_params}
 
         return self._session.put(metadata, resource, payload)
+        
+
+
+    def deleteOrganizationAdaptivePolicyGroup(self, organizationId: str, groupId: str):
+        """
+        **Deletes the specified adaptive policy group and any associated policies and references**
+        https://developer.cisco.com/meraki/api-v1/#!delete-organization-adaptive-policy-group
+
+        - organizationId (string): (required)
+        - groupId (string): (required)
+        """
+
+        metadata = {
+            'tags': ['organizations', 'configure', 'adaptivePolicy', 'groups'],
+            'operation': 'deleteOrganizationAdaptivePolicyGroup'
+        }
+        resource = f'/organizations/{organizationId}/adaptivePolicy/groups/{groupId}'
+
+        return self._session.delete(metadata, resource)
         
 
 
