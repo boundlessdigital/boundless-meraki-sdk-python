@@ -872,6 +872,10 @@ class AsyncOrganizations:
 
         kwargs.update(locals())
 
+        if 'method' in kwargs:
+            options = ['GET', 'PUT', 'POST', 'DELETE']
+            assert kwargs['method'] in options, f'''"method" cannot be "{kwargs['method']}", & must be set to one of: {options}'''
+
         metadata = {
             'tags': ['organizations', 'monitor', 'apiRequests'],
             'operation': 'getOrganizationApiRequests'
