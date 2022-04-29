@@ -606,6 +606,7 @@ Cannot be applied to a port on a switch bound to profile.
         - accessPolicyType (string): Access Type of the policy. Automatically 'Hybrid authentication' when hostMode is 'Multi-Domain'.
         - increaseAccessSpeed (boolean): Enabling this option will make switches execute 802.1X and MAC-bypass authentication simultaneously so that clients authenticate faster. Only required when accessPolicyType is 'Hybrid Authentication.
         - guestVlanId (integer): ID for the guest VLAN allow unauthorized devices access to limited network resources
+        - dot1x (object): 802.1x Settings
         - voiceVlanClients (boolean): CDP/LLDP capable voice clients will be able to use this VLAN. Automatically true when hostMode is 'Multi-Domain'.
         - urlRedirectWalledGardenRanges (array): IP address ranges, in CIDR notation, to restrict access for clients to a specific set of IP addresses or hostnames prior to authentication
         """
@@ -625,7 +626,7 @@ Cannot be applied to a port on a switch bound to profile.
         }
         resource = f'/networks/{networkId}/switch/accessPolicies'
 
-        body_params = ['name', 'radiusServers', 'radius', 'radiusTestingEnabled', 'radiusCoaSupportEnabled', 'radiusAccountingEnabled', 'radiusAccountingServers', 'radiusGroupAttribute', 'hostMode', 'accessPolicyType', 'increaseAccessSpeed', 'guestVlanId', 'voiceVlanClients', 'urlRedirectWalledGardenEnabled', 'urlRedirectWalledGardenRanges', ]
+        body_params = ['name', 'radiusServers', 'radius', 'radiusTestingEnabled', 'radiusCoaSupportEnabled', 'radiusAccountingEnabled', 'radiusAccountingServers', 'radiusGroupAttribute', 'hostMode', 'accessPolicyType', 'increaseAccessSpeed', 'guestVlanId', 'dot1x', 'voiceVlanClients', 'urlRedirectWalledGardenEnabled', 'urlRedirectWalledGardenRanges', ]
         payload = {k.strip(): v for k, v in kwargs.items() if k.strip() in body_params}
 
         return self._session.post(metadata, resource, payload)
@@ -670,6 +671,7 @@ Cannot be applied to a port on a switch bound to profile.
         - accessPolicyType (string): Access Type of the policy. Automatically 'Hybrid authentication' when hostMode is 'Multi-Domain'.
         - increaseAccessSpeed (boolean): Enabling this option will make switches execute 802.1X and MAC-bypass authentication simultaneously so that clients authenticate faster. Only required when accessPolicyType is 'Hybrid Authentication.
         - guestVlanId (integer): ID for the guest VLAN allow unauthorized devices access to limited network resources
+        - dot1x (object): 802.1x Settings
         - voiceVlanClients (boolean): CDP/LLDP capable voice clients will be able to use this VLAN. Automatically true when hostMode is 'Multi-Domain'.
         - urlRedirectWalledGardenEnabled (boolean): Enable to restrict access for clients to a specific set of IP addresses or hostnames prior to authentication
         - urlRedirectWalledGardenRanges (array): IP address ranges, in CIDR notation, to restrict access for clients to a specific set of IP addresses or hostnames prior to authentication
@@ -690,7 +692,7 @@ Cannot be applied to a port on a switch bound to profile.
         }
         resource = f'/networks/{networkId}/switch/accessPolicies/{accessPolicyNumber}'
 
-        body_params = ['name', 'radiusServers', 'radius', 'radiusTestingEnabled', 'radiusCoaSupportEnabled', 'radiusAccountingEnabled', 'radiusAccountingServers', 'radiusGroupAttribute', 'hostMode', 'accessPolicyType', 'increaseAccessSpeed', 'guestVlanId', 'voiceVlanClients', 'urlRedirectWalledGardenEnabled', 'urlRedirectWalledGardenRanges', ]
+        body_params = ['name', 'radiusServers', 'radius', 'radiusTestingEnabled', 'radiusCoaSupportEnabled', 'radiusAccountingEnabled', 'radiusAccountingServers', 'radiusGroupAttribute', 'hostMode', 'accessPolicyType', 'increaseAccessSpeed', 'guestVlanId', 'dot1x', 'voiceVlanClients', 'urlRedirectWalledGardenEnabled', 'urlRedirectWalledGardenRanges', ]
         payload = {k.strip(): v for k, v in kwargs.items() if k.strip() in body_params}
 
         return self._session.put(metadata, resource, payload)
@@ -2168,7 +2170,7 @@ Cannot be applied to a port on a switch bound to profile.
 
     def getOrganizationSwitchPortsBySwitch(self, organizationId: str, total_pages=1, direction='next', **kwargs):
         """
-        **List the switchports in an organization**
+        **List the switchports in an organization by switch**
         https://developer.cisco.com/meraki/api-v1/#!get-organization-switch-ports-by-switch
 
         - organizationId (string): (required)
