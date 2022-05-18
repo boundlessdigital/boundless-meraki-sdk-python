@@ -1512,6 +1512,130 @@ class Organizations(object):
         
 
 
+    def getOrganizationEarlyAccessFeatures(self, organizationId: str):
+        """
+        **List the available early access features for organization**
+        https://developer.cisco.com/meraki/api-v1/#!get-organization-early-access-features
+
+        - organizationId (string): (required)
+        """
+
+        metadata = {
+            'tags': ['organizations', 'configure', 'earlyAccess', 'features'],
+            'operation': 'getOrganizationEarlyAccessFeatures'
+        }
+        resource = f'/organizations/{organizationId}/earlyAccess/features'
+
+        return self._session.get(metadata, resource)
+        
+
+
+    def getOrganizationEarlyAccessFeaturesOptIns(self, organizationId: str):
+        """
+        **List the early access feature opt-ins for an organization**
+        https://developer.cisco.com/meraki/api-v1/#!get-organization-early-access-features-opt-ins
+
+        - organizationId (string): (required)
+        """
+
+        metadata = {
+            'tags': ['organizations', 'configure', 'earlyAccess', 'features', 'optIns'],
+            'operation': 'getOrganizationEarlyAccessFeaturesOptIns'
+        }
+        resource = f'/organizations/{organizationId}/earlyAccess/features/optIns'
+
+        return self._session.get(metadata, resource)
+        
+
+
+    def createOrganizationEarlyAccessFeaturesOptIn(self, organizationId: str, shortName: str, **kwargs):
+        """
+        **Create a new early access feature opt-in for an organization**
+        https://developer.cisco.com/meraki/api-v1/#!create-organization-early-access-features-opt-in
+
+        - organizationId (string): (required)
+        - shortName (string): Short name of the early access feature
+        - limitScopeToNetworks (array): A list of network IDs to apply the opt-in to
+        """
+
+        kwargs.update(locals())
+
+        metadata = {
+            'tags': ['organizations', 'configure', 'earlyAccess', 'features', 'optIns'],
+            'operation': 'createOrganizationEarlyAccessFeaturesOptIn'
+        }
+        resource = f'/organizations/{organizationId}/earlyAccess/features/optIns'
+
+        body_params = ['shortName', 'limitScopeToNetworks', ]
+        payload = {k.strip(): v for k, v in kwargs.items() if k.strip() in body_params}
+
+        return self._session.post(metadata, resource, payload)
+        
+
+
+    def getOrganizationEarlyAccessFeaturesOptIn(self, organizationId: str, optInId: str):
+        """
+        **Show an early access feature opt-in for an organization**
+        https://developer.cisco.com/meraki/api-v1/#!get-organization-early-access-features-opt-in
+
+        - organizationId (string): (required)
+        - optInId (string): (required)
+        """
+
+        metadata = {
+            'tags': ['organizations', 'configure', 'earlyAccess', 'features', 'optIns'],
+            'operation': 'getOrganizationEarlyAccessFeaturesOptIn'
+        }
+        resource = f'/organizations/{organizationId}/earlyAccess/features/optIns/{optInId}'
+
+        return self._session.get(metadata, resource)
+        
+
+
+    def updateOrganizationEarlyAccessFeaturesOptIn(self, organizationId: str, optInId: str, **kwargs):
+        """
+        **Update an early access feature opt-in for an organization**
+        https://developer.cisco.com/meraki/api-v1/#!update-organization-early-access-features-opt-in
+
+        - organizationId (string): (required)
+        - optInId (string): (required)
+        - limitScopeToNetworks (array): A list of network IDs to apply the opt-in to
+        """
+
+        kwargs.update(locals())
+
+        metadata = {
+            'tags': ['organizations', 'configure', 'earlyAccess', 'features', 'optIns'],
+            'operation': 'updateOrganizationEarlyAccessFeaturesOptIn'
+        }
+        resource = f'/organizations/{organizationId}/earlyAccess/features/optIns/{optInId}'
+
+        body_params = ['limitScopeToNetworks', ]
+        payload = {k.strip(): v for k, v in kwargs.items() if k.strip() in body_params}
+
+        return self._session.put(metadata, resource, payload)
+        
+
+
+    def deleteOrganizationEarlyAccessFeaturesOptIn(self, organizationId: str, optInId: str):
+        """
+        **Delete an early access feature opt-in**
+        https://developer.cisco.com/meraki/api-v1/#!delete-organization-early-access-features-opt-in
+
+        - organizationId (string): (required)
+        - optInId (string): (required)
+        """
+
+        metadata = {
+            'tags': ['organizations', 'configure', 'earlyAccess', 'features', 'optIns'],
+            'operation': 'deleteOrganizationEarlyAccessFeaturesOptIn'
+        }
+        resource = f'/organizations/{organizationId}/earlyAccess/features/optIns/{optInId}'
+
+        return self._session.delete(metadata, resource)
+        
+
+
     def claimIntoOrganizationInventory(self, organizationId: str, **kwargs):
         """
         **Claim a list of devices, licenses, and/or orders into an organization**
@@ -2252,7 +2376,7 @@ class Organizations(object):
         - organizationId (string): (required)
         - name (string): Name of a policy object, unique within the organization (alphanumeric, space, dash, or underscore characters only)
         - category (string): Category of a policy object (one of: adaptivePolicy, network)
-        - type (string): Type of a policy object (one of: adaptivePolicyIpv4Cidr, fqdn, ipAndMask, cidr)
+        - type (string): Type of a policy object (one of: fqdn, ipAndMask, cidr, adaptivePolicyIpv4Cidr)
         - cidr (string): CIDR Value of a policy object (e.g. 10.11.12.1/24")
         - fqdn (string): Fully qualified domain name of policy object (e.g. "example.com")
         - mask (string): Mask of a policy object (e.g. "255.255.0.0")

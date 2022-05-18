@@ -520,6 +520,38 @@ class ActionBatchOrganizations(object):
 
 
 
+    def updateOrganizationEarlyAccessFeaturesOptIn(self, organizationId: str, optInId: str, **kwargs):
+        """
+        **Update an early access feature opt-in for an organization**
+        https://developer.cisco.com/meraki/api-v1/#!update-organization-early-access-features-opt-in
+
+        - organizationId (string): (required)
+        - optInId (string): (required)
+        - limitScopeToNetworks (array): A list of network IDs to apply the opt-in to
+        """
+
+        kwargs.update(locals())
+
+        metadata = {
+            'tags': ['organizations', 'configure', 'earlyAccess', 'features', 'optIns'],
+            'operation': 'updateOrganizationEarlyAccessFeaturesOptIn'
+        }
+        resource = f'/organizations/{organizationId}/earlyAccess/features/optIns/{optInId}'
+
+        body_params = ['limitScopeToNetworks', ]
+        payload = {k.strip(): v for k, v in kwargs.items() if k.strip() in body_params}
+        action = {
+            "resource": resource,
+            "operation": "update",
+            "body": payload
+        }
+        return action
+        
+
+
+
+
+
     def assignOrganizationLicensesSeats(self, organizationId: str, licenseId: str, networkId: str, seatCount: int):
         """
         **Assign SM seats to a network**
@@ -989,7 +1021,7 @@ class ActionBatchOrganizations(object):
         - organizationId (string): (required)
         - name (string): Name of a policy object, unique within the organization (alphanumeric, space, dash, or underscore characters only)
         - category (string): Category of a policy object (one of: adaptivePolicy, network)
-        - type (string): Type of a policy object (one of: adaptivePolicyIpv4Cidr, fqdn, ipAndMask, cidr)
+        - type (string): Type of a policy object (one of: fqdn, ipAndMask, cidr, adaptivePolicyIpv4Cidr)
         - cidr (string): CIDR Value of a policy object (e.g. 10.11.12.1/24")
         - fqdn (string): Fully qualified domain name of policy object (e.g. "example.com")
         - mask (string): Mask of a policy object (e.g. "255.255.0.0")
