@@ -869,6 +869,8 @@ class Organizations(object):
         - responseCode (integer): Filter the results by the response code of the API requests
         - sourceIp (string): Filter the results by the IP address of the originating API request
         - userAgent (string): Filter the results by the user agent string of the API request
+        - version (integer): Filter the results by the API version of the API request
+        - operationIds (array): Filter the results by one or more operation IDs for the API request
         """
 
         kwargs.update(locals())
@@ -876,6 +878,9 @@ class Organizations(object):
         if 'method' in kwargs:
             options = ['GET', 'PUT', 'POST', 'DELETE']
             assert kwargs['method'] in options, f'''"method" cannot be "{kwargs['method']}", & must be set to one of: {options}'''
+        if 'version' in kwargs:
+            options = [0, 1]
+            assert kwargs['version'] in options, f'''"version" cannot be "{kwargs['version']}", & must be set to one of: {options}'''
 
         metadata = {
             'tags': ['organizations', 'monitor', 'apiRequests'],
@@ -883,8 +888,14 @@ class Organizations(object):
         }
         resource = f'/organizations/{organizationId}/apiRequests'
 
-        query_params = ['t0', 't1', 'timespan', 'perPage', 'startingAfter', 'endingBefore', 'adminId', 'path', 'method', 'responseCode', 'sourceIp', 'userAgent', ]
+        query_params = ['t0', 't1', 'timespan', 'perPage', 'startingAfter', 'endingBefore', 'adminId', 'path', 'method', 'responseCode', 'sourceIp', 'userAgent', 'version', 'operationIds', ]
         params = {k.strip(): v for k, v in kwargs.items() if k.strip() in query_params}
+
+        array_params = ['operationIds', ]
+        for k, v in kwargs.items():
+            if k.strip() in array_params:
+                params[f'{k.strip()}[]'] = kwargs[f'{k}']
+                params.pop(k.strip())
 
         return self._session.get_pages(metadata, resource, params, total_pages, direction)
         
@@ -2376,7 +2387,7 @@ class Organizations(object):
         - organizationId (string): (required)
         - name (string): Name of a policy object, unique within the organization (alphanumeric, space, dash, or underscore characters only)
         - category (string): Category of a policy object (one of: adaptivePolicy, network)
-        - type (string): Type of a policy object (one of: fqdn, ipAndMask, cidr, adaptivePolicyIpv4Cidr)
+        - type (string): Type of a policy object (one of: adaptivePolicyIpv4Cidr, fqdn, ipAndMask, cidr)
         - cidr (string): CIDR Value of a policy object (e.g. 10.11.12.1/24")
         - fqdn (string): Fully qualified domain name of policy object (e.g. "example.com")
         - mask (string): Mask of a policy object (e.g. "255.255.0.0")
