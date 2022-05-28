@@ -574,9 +574,11 @@ Cannot be applied to a port on a switch bound to profile.
         https://developer.cisco.com/meraki/api-v1/#!update-network-switch-dhcp-server-policy
 
         - networkId (string): (required)
+        - alerts (object): Alert settings for DHCP servers
         - defaultPolicy (string): 'allow' or 'block' new DHCP servers. Default value is 'allow'.
         - allowedServers (array): List the MAC addresses of DHCP servers to permit on the network when defaultPolicy is set to block. An empty array will clear the entries.
         - blockedServers (array): List the MAC addresses of DHCP servers to block on the network when defaultPolicy is set to allow. An empty array will clear the entries.
+        - arpInspection (object): Dynamic ARP Inspection settings
         """
 
         kwargs.update(locals())
@@ -591,11 +593,105 @@ Cannot be applied to a port on a switch bound to profile.
         }
         resource = f'/networks/{networkId}/switch/dhcpServerPolicy'
 
-        body_params = ['defaultPolicy', 'allowedServers', 'blockedServers', ]
+        body_params = ['alerts', 'defaultPolicy', 'allowedServers', 'blockedServers', 'arpInspection', ]
         payload = {k.strip(): v for k, v in kwargs.items() if k.strip() in body_params}
         action = {
             "resource": resource,
             "operation": "update",
+            "body": payload
+        }
+        return action
+        
+
+
+
+
+
+    def createNetworkSwitchDhcpServerPolicyArpInspectionTrustedServer(self, networkId: str, mac: str, vlan: int, ipv4: dict):
+        """
+        **Add a server to be trusted by Dynamic ARP Inspection on this network**
+        https://developer.cisco.com/meraki/api-v1/#!create-network-switch-dhcp-server-policy-arp-inspection-trusted-server
+
+        - networkId (string): (required)
+        - mac (string): The mac address of the trusted server being added
+        - vlan (integer): The VLAN of the trusted server being added. It must be between 1 and 4094
+        - ipv4 (object): The IPv4 attributes of the trusted server being added
+        """
+
+        kwargs = locals()
+
+        metadata = {
+            'tags': ['switch', 'configure', 'dhcpServerPolicy', 'arpInspection', 'trustedServers'],
+            'operation': 'createNetworkSwitchDhcpServerPolicyArpInspectionTrustedServer'
+        }
+        resource = f'/networks/{networkId}/switch/dhcpServerPolicy/arpInspection/trustedServers'
+
+        body_params = ['mac', 'vlan', 'ipv4', ]
+        payload = {k.strip(): v for k, v in kwargs.items() if k.strip() in body_params}
+        action = {
+            "resource": resource,
+            "operation": "create",
+            "body": payload
+        }
+        return action
+        
+
+
+
+
+
+    def updateNetworkSwitchDhcpServerPolicyArpInspectionTrustedServer(self, networkId: str, trustedServerId: str, **kwargs):
+        """
+        **Update a server that is trusted by Dynamic ARP Inspection on this network**
+        https://developer.cisco.com/meraki/api-v1/#!update-network-switch-dhcp-server-policy-arp-inspection-trusted-server
+
+        - networkId (string): (required)
+        - trustedServerId (string): (required)
+        - mac (string): The updated mac address of the trusted server
+        - vlan (integer): The updated VLAN of the trusted server. It must be between 1 and 4094
+        - ipv4 (object): The updated IPv4 attributes of the trusted server
+        """
+
+        kwargs.update(locals())
+
+        metadata = {
+            'tags': ['switch', 'configure', 'dhcpServerPolicy', 'arpInspection', 'trustedServers'],
+            'operation': 'updateNetworkSwitchDhcpServerPolicyArpInspectionTrustedServer'
+        }
+        resource = f'/networks/{networkId}/switch/dhcpServerPolicy/arpInspection/trustedServers/{trustedServerId}'
+
+        body_params = ['mac', 'vlan', 'ipv4', ]
+        payload = {k.strip(): v for k, v in kwargs.items() if k.strip() in body_params}
+        action = {
+            "resource": resource,
+            "operation": "update",
+            "body": payload
+        }
+        return action
+        
+
+
+
+
+
+    def deleteNetworkSwitchDhcpServerPolicyArpInspectionTrustedServer(self, networkId: str, trustedServerId: str):
+        """
+        **Remove a server from being trusted by Dynamic ARP Inspection on this network**
+        https://developer.cisco.com/meraki/api-v1/#!delete-network-switch-dhcp-server-policy-arp-inspection-trusted-server
+
+        - networkId (string): (required)
+        - trustedServerId (string): (required)
+        """
+
+        metadata = {
+            'tags': ['switch', 'configure', 'dhcpServerPolicy', 'arpInspection', 'trustedServers'],
+            'operation': 'deleteNetworkSwitchDhcpServerPolicyArpInspectionTrustedServer'
+        }
+        resource = f'/networks/{networkId}/switch/dhcpServerPolicy/arpInspection/trustedServers/{trustedServerId}'
+
+        action = {
+            "resource": resource,
+            "operation": "destroy",
             "body": payload
         }
         return action
