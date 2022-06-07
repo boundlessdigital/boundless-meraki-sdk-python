@@ -35,15 +35,15 @@ class ActionBatchSensor(object):
 
 
 
-    def createNetworkSensorAlertsProfile(self, networkId: str, **kwargs):
+    def createNetworkSensorAlertsProfile(self, networkId: str, name: str, conditions: list, **kwargs):
         """
         **Creates a sensor alert profile for a network.**
         https://developer.cisco.com/meraki/api-v1/#!create-network-sensor-alerts-profile
 
         - networkId (string): (required)
-        - name (string): Name of the sensor alert profiles.
-        - scheduleId (string): Id of the schedule to attach to the alert profile.
-        - conditions (array): List of alert conditions.
+        - name (string): Name of the sensor alert profile.
+        - conditions (array): List of conditions that will cause the profile to send an alert.
+        - schedule (object): The sensor schedule to use with the alert profile.
         - recipients (object): List of recipients that will recieve the alert.
         - serials (array): List of device serials assigned to this sensor alert profile.
         """
@@ -56,7 +56,7 @@ class ActionBatchSensor(object):
         }
         resource = f'/networks/{networkId}/sensor/alerts/profiles'
 
-        body_params = ['name', 'scheduleId', 'conditions', 'recipients', 'serials', ]
+        body_params = ['name', 'schedule', 'conditions', 'recipients', 'serials', ]
         payload = {k.strip(): v for k, v in kwargs.items() if k.strip() in body_params}
         action = {
             "resource": resource,
@@ -70,17 +70,17 @@ class ActionBatchSensor(object):
 
 
 
-    def updateNetworkSensorAlertsProfile(self, networkId: str, id: str, **kwargs):
+    def updateNetworkSensorAlertsProfile(self, networkId: str, id: str, name: str, conditions: list, **kwargs):
         """
         **Updates a sensor alert profile for a network.**
         https://developer.cisco.com/meraki/api-v1/#!update-network-sensor-alerts-profile
 
         - networkId (string): (required)
         - id (string): (required)
-        - name (string): Name of the sensor alert profiles.
-        - scheduleId (string): Id of the schedule to attach to the alert profile.
-        - conditions (array): List of alert conditions.
-        - recipients (object): List of alert conditions.
+        - name (string): Name of the sensor alert profile.
+        - conditions (array): List of conditions that will cause the profile to send an alert.
+        - schedule (object): The sensor schedule to use with the alert profile.
+        - recipients (object): List of recipients that will recieve the alert.
         - serials (array): List of device serials assigned to this sensor alert profile.
         """
 
@@ -92,7 +92,7 @@ class ActionBatchSensor(object):
         }
         resource = f'/networks/{networkId}/sensor/alerts/profiles/{id}'
 
-        body_params = ['name', 'scheduleId', 'conditions', 'recipients', 'serials', ]
+        body_params = ['name', 'schedule', 'conditions', 'recipients', 'serials', ]
         payload = {k.strip(): v for k, v in kwargs.items() if k.strip() in body_params}
         action = {
             "resource": resource,

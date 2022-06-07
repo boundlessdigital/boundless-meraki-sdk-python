@@ -750,6 +750,77 @@ class ActionBatchNetworks(object):
 
 
 
+    def createNetworkSensorsAlertsProfile(self, networkId: str, **kwargs):
+        """
+        **Creates a sensor alert profile for a network.**
+        https://developer.cisco.com/meraki/api-v1/#!create-network-sensors-alerts-profile
+
+        - networkId (string): (required)
+        - name (string): Name of the sensor alert profiles.
+        - scheduleId (string): Id of the schedule to attach to the alert profile.
+        - conditions (array): List of alert conditions.
+        - recipients (object): List of recipients that will recieve the alert.
+        - serials (array): List of device serials assigned to this sensor alert profile.
+        """
+
+        kwargs.update(locals())
+
+        metadata = {
+            'tags': ['networks', 'configure', 'sensors', 'alerts', 'profiles'],
+            'operation': 'createNetworkSensorsAlertsProfile'
+        }
+        resource = f'/networks/{networkId}/sensors/alerts/profiles'
+
+        body_params = ['name', 'scheduleId', 'conditions', 'recipients', 'serials', ]
+        payload = {k.strip(): v for k, v in kwargs.items() if k.strip() in body_params}
+        action = {
+            "resource": resource,
+            "operation": "create",
+            "body": payload
+        }
+        return action
+        
+
+
+
+
+
+    def updateNetworkSensorsAlertsProfile(self, networkId: str, id: str, **kwargs):
+        """
+        **Updates a sensor alert profile for a network.**
+        https://developer.cisco.com/meraki/api-v1/#!update-network-sensors-alerts-profile
+
+        - networkId (string): (required)
+        - id (string): (required)
+        - name (string): Name of the sensor alert profiles.
+        - scheduleId (string): Id of the schedule to attach to the alert profile.
+        - conditions (array): List of alert conditions.
+        - recipients (object): List of alert conditions.
+        - serials (array): List of device serials assigned to this sensor alert profile.
+        """
+
+        kwargs.update(locals())
+
+        metadata = {
+            'tags': ['networks', 'configure', 'sensors', 'alerts', 'profiles'],
+            'operation': 'updateNetworkSensorsAlertsProfile'
+        }
+        resource = f'/networks/{networkId}/sensors/alerts/profiles/{id}'
+
+        body_params = ['name', 'scheduleId', 'conditions', 'recipients', 'serials', ]
+        payload = {k.strip(): v for k, v in kwargs.items() if k.strip() in body_params}
+        action = {
+            "resource": resource,
+            "operation": "update",
+            "body": payload
+        }
+        return action
+        
+
+
+
+
+
     def updateNetworkSettings(self, networkId: str, **kwargs):
         """
         **Update the settings for a network**

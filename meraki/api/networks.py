@@ -1759,6 +1759,100 @@ class Networks(object):
         
 
 
+    def getNetworkSensorsAlertsProfiles(self, networkId: str):
+        """
+        **Lists all sensor alert profiles for a network.**
+        https://developer.cisco.com/meraki/api-v1/#!get-network-sensors-alerts-profiles
+
+        - networkId (string): (required)
+        """
+
+        metadata = {
+            'tags': ['networks', 'configure', 'sensors', 'alerts', 'profiles'],
+            'operation': 'getNetworkSensorsAlertsProfiles'
+        }
+        resource = f'/networks/{networkId}/sensors/alerts/profiles'
+
+        return self._session.get(metadata, resource)
+        
+
+
+    def createNetworkSensorsAlertsProfile(self, networkId: str, **kwargs):
+        """
+        **Creates a sensor alert profile for a network.**
+        https://developer.cisco.com/meraki/api-v1/#!create-network-sensors-alerts-profile
+
+        - networkId (string): (required)
+        - name (string): Name of the sensor alert profiles.
+        - scheduleId (string): Id of the schedule to attach to the alert profile.
+        - conditions (array): List of alert conditions.
+        - recipients (object): List of recipients that will recieve the alert.
+        - serials (array): List of device serials assigned to this sensor alert profile.
+        """
+
+        kwargs.update(locals())
+
+        metadata = {
+            'tags': ['networks', 'configure', 'sensors', 'alerts', 'profiles'],
+            'operation': 'createNetworkSensorsAlertsProfile'
+        }
+        resource = f'/networks/{networkId}/sensors/alerts/profiles'
+
+        body_params = ['name', 'scheduleId', 'conditions', 'recipients', 'serials', ]
+        payload = {k.strip(): v for k, v in kwargs.items() if k.strip() in body_params}
+
+        return self._session.post(metadata, resource, payload)
+        
+
+
+    def getNetworkSensorsAlertsProfile(self, networkId: str, id: str):
+        """
+        **Show details of a sensor alert profile for a network.**
+        https://developer.cisco.com/meraki/api-v1/#!get-network-sensors-alerts-profile
+
+        - networkId (string): (required)
+        - id (string): (required)
+        """
+
+        metadata = {
+            'tags': ['networks', 'configure', 'sensors', 'alerts', 'profiles'],
+            'operation': 'getNetworkSensorsAlertsProfile'
+        }
+        resource = f'/networks/{networkId}/sensors/alerts/profiles/{id}'
+
+        return self._session.get(metadata, resource)
+        
+
+
+    def updateNetworkSensorsAlertsProfile(self, networkId: str, id: str, **kwargs):
+        """
+        **Updates a sensor alert profile for a network.**
+        https://developer.cisco.com/meraki/api-v1/#!update-network-sensors-alerts-profile
+
+        - networkId (string): (required)
+        - id (string): (required)
+        - name (string): Name of the sensor alert profiles.
+        - scheduleId (string): Id of the schedule to attach to the alert profile.
+        - conditions (array): List of alert conditions.
+        - recipients (object): List of alert conditions.
+        - serials (array): List of device serials assigned to this sensor alert profile.
+        """
+
+        kwargs.update(locals())
+
+        metadata = {
+            'tags': ['networks', 'configure', 'sensors', 'alerts', 'profiles'],
+            'operation': 'updateNetworkSensorsAlertsProfile'
+        }
+        resource = f'/networks/{networkId}/sensors/alerts/profiles/{id}'
+
+        body_params = ['name', 'scheduleId', 'conditions', 'recipients', 'serials', ]
+        payload = {k.strip(): v for k, v in kwargs.items() if k.strip() in body_params}
+
+        return self._session.put(metadata, resource, payload)
+        
+
+
     def getNetworkSettings(self, networkId: str):
         """
         **Return the settings for a network**
