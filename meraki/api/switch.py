@@ -666,7 +666,7 @@ Cannot be applied to a port on a switch bound to profile.
         - radiusCoaSupportEnabled (boolean): Change of authentication for RADIUS re-authentication and disconnection
         - radiusAccountingEnabled (boolean): Enable to send start, interim-update and stop messages to a configured RADIUS accounting server for tracking connected clients
         - radiusAccountingServers (array): List of RADIUS accounting servers to require connecting devices to authenticate against before granting network access
-        - radiusGroupAttribute (string): Can be either `""`, which means `None` on Dashboard, or `"11"`, which means `Filter-Id` on Dashboard and will use Group Policy ACLs when supported (firmware 14+)
+        - radiusGroupAttribute (string): Acceptable values are `""` for None, or `"11"` for Group Policies ACL
         - hostMode (string): Choose the Host Mode for the access policy.
         - accessPolicyType (string): Access Type of the policy. Automatically 'Hybrid authentication' when hostMode is 'Multi-Domain'.
         - increaseAccessSpeed (boolean): Enabling this option will make switches execute 802.1X and MAC-bypass authentication simultaneously so that clients authenticate faster. Only required when accessPolicyType is 'Hybrid Authentication.

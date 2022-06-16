@@ -1777,15 +1777,15 @@ class AsyncNetworks:
         
 
 
-    def createNetworkSensorsAlertsProfile(self, networkId: str, **kwargs):
+    def createNetworkSensorsAlertsProfile(self, networkId: str, name: str, conditions: list, **kwargs):
         """
         **Creates a sensor alert profile for a network.**
         https://developer.cisco.com/meraki/api-v1/#!create-network-sensors-alerts-profile
 
         - networkId (string): (required)
-        - name (string): Name of the sensor alert profiles.
-        - scheduleId (string): Id of the schedule to attach to the alert profile.
+        - name (string): Name of the sensor alert profile.
         - conditions (array): List of alert conditions.
+        - scheduleId (string): ID of the schedule to attach to the alert profile.
         - recipients (object): List of recipients that will recieve the alert.
         - serials (array): List of device serials assigned to this sensor alert profile.
         """
@@ -1824,17 +1824,17 @@ class AsyncNetworks:
         
 
 
-    def updateNetworkSensorsAlertsProfile(self, networkId: str, id: str, **kwargs):
+    def updateNetworkSensorsAlertsProfile(self, networkId: str, id: str, name: str, conditions: list, **kwargs):
         """
         **Updates a sensor alert profile for a network.**
         https://developer.cisco.com/meraki/api-v1/#!update-network-sensors-alerts-profile
 
         - networkId (string): (required)
         - id (string): (required)
-        - name (string): Name of the sensor alert profiles.
-        - scheduleId (string): Id of the schedule to attach to the alert profile.
+        - name (string): Name of the sensor alert profile.
         - conditions (array): List of alert conditions.
-        - recipients (object): List of alert conditions.
+        - scheduleId (string): ID of the schedule to attach to the alert profile.
+        - recipients (object): List of recipients that will recieve the alert.
         - serials (array): List of device serials assigned to this sensor alert profile.
         """
 
