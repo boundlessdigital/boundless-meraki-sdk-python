@@ -1035,6 +1035,38 @@ class Appliance(object):
         
 
 
+    def updateNetworkApplianceSettings(self, networkId: str, **kwargs):
+        """
+        **Update the appliance settings for a network**
+        https://developer.cisco.com/meraki/api-v1/#!update-network-appliance-settings
+
+        - networkId (string): (required)
+        - clientTrackingMethod (string): Client tracking method of a network
+        - deploymentMode (string): Deployment mode of a network
+        """
+
+        kwargs.update(locals())
+
+        if 'clientTrackingMethod' in kwargs:
+            options = ['IP address', 'MAC address', 'Unique client identifier']
+            assert kwargs['clientTrackingMethod'] in options, f'''"clientTrackingMethod" cannot be "{kwargs['clientTrackingMethod']}", & must be set to one of: {options}'''
+        if 'deploymentMode' in kwargs:
+            options = ['routed', 'passthrough']
+            assert kwargs['deploymentMode'] in options, f'''"deploymentMode" cannot be "{kwargs['deploymentMode']}", & must be set to one of: {options}'''
+
+        metadata = {
+            'tags': ['appliance', 'configure', 'settings'],
+            'operation': 'updateNetworkApplianceSettings'
+        }
+        resource = f'/networks/{networkId}/appliance/settings'
+
+        body_params = ['clientTrackingMethod', 'deploymentMode', ]
+        payload = {k.strip(): v for k, v in kwargs.items() if k.strip() in body_params}
+
+        return self._session.put(metadata, resource, payload)
+        
+
+
     def getNetworkApplianceSingleLan(self, networkId: str):
         """
         **Return single LAN configuration**
@@ -1620,10 +1652,17 @@ class Appliance(object):
         - subnet (string): The subnet of the VLAN
         - applianceIp (string): The local IP of the appliance on the VLAN
         - groupPolicyId (string): The id of the desired group policy to apply to the VLAN
+        - templateVlanType (string): Type of subnetting of the VLAN. Applicable only for template network.
+        - cidr (string): CIDR of the pool of subnets. Applicable only for template network. Each network bound to the template will automatically pick a subnet from this pool to build its own VLAN.
+        - mask (integer): Mask used for the subnet of all bound to the template networks. Applicable only for template network.
         - ip6 (object): IPv6 configuration on the VLAN
         """
 
         kwargs.update(locals())
+
+        if 'templateVlanType' in kwargs:
+            options = ['same', 'unique']
+            assert kwargs['templateVlanType'] in options, f'''"templateVlanType" cannot be "{kwargs['templateVlanType']}", & must be set to one of: {options}'''
 
         metadata = {
             'tags': ['appliance', 'configure', 'vlans'],
@@ -1631,7 +1670,7 @@ class Appliance(object):
         }
         resource = f'/networks/{networkId}/appliance/vlans'
 
-        body_params = ['id', 'name', 'subnet', 'applianceIp', 'groupPolicyId', 'ip6', ]
+        body_params = ['id', 'name', 'subnet', 'applianceIp', 'groupPolicyId', 'templateVlanType', 'cidr', 'mask', 'ip6', ]
         payload = {k.strip(): v for k, v in kwargs.items() if k.strip() in body_params}
 
         return self._session.post(metadata, resource, payload)
@@ -1721,6 +1760,9 @@ class Appliance(object):
         - reservedIpRanges (array): The DHCP reserved IP ranges on the VLAN
         - dnsNameservers (string): The DNS nameservers used for DHCP responses, either "upstream_dns", "google_dns", "opendns", or a newline seperated string of IP addresses or domain names
         - dhcpOptions (array): The list of DHCP options that will be included in DHCP responses. Each object in the list should have "code", "type", and "value" properties.
+        - templateVlanType (string): Type of subnetting of the VLAN. Applicable only for template network.
+        - cidr (string): CIDR of the pool of subnets. Applicable only for template network. Each network bound to the template will automatically pick a subnet from this pool to build its own VLAN.
+        - mask (integer): Mask used for the subnet of all bound to the template networks. Applicable only for template network.
         - ip6 (object): IPv6 configuration on the VLAN
         """
 
@@ -1732,6 +1774,9 @@ class Appliance(object):
         if 'dhcpLeaseTime' in kwargs:
             options = ['30 minutes', '1 hour', '4 hours', '12 hours', '1 day', '1 week']
             assert kwargs['dhcpLeaseTime'] in options, f'''"dhcpLeaseTime" cannot be "{kwargs['dhcpLeaseTime']}", & must be set to one of: {options}'''
+        if 'templateVlanType' in kwargs:
+            options = ['same', 'unique']
+            assert kwargs['templateVlanType'] in options, f'''"templateVlanType" cannot be "{kwargs['templateVlanType']}", & must be set to one of: {options}'''
 
         metadata = {
             'tags': ['appliance', 'configure', 'vlans'],
@@ -1739,7 +1784,7 @@ class Appliance(object):
         }
         resource = f'/networks/{networkId}/appliance/vlans/{vlanId}'
 
-        body_params = ['name', 'subnet', 'applianceIp', 'groupPolicyId', 'vpnNatSubnet', 'dhcpHandling', 'dhcpRelayServerIps', 'dhcpLeaseTime', 'dhcpBootOptionsEnabled', 'dhcpBootNextServer', 'dhcpBootFilename', 'fixedIpAssignments', 'reservedIpRanges', 'dnsNameservers', 'dhcpOptions', 'ip6', ]
+        body_params = ['name', 'subnet', 'applianceIp', 'groupPolicyId', 'vpnNatSubnet', 'dhcpHandling', 'dhcpRelayServerIps', 'dhcpLeaseTime', 'dhcpBootOptionsEnabled', 'dhcpBootNextServer', 'dhcpBootFilename', 'fixedIpAssignments', 'reservedIpRanges', 'dnsNameservers', 'dhcpOptions', 'templateVlanType', 'cidr', 'mask', 'ip6', ]
         payload = {k.strip(): v for k, v in kwargs.items() if k.strip() in body_params}
 
         return self._session.put(metadata, resource, payload)

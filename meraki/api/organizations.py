@@ -388,32 +388,32 @@ class Organizations(object):
         
 
 
-    def getOrganizationAdaptivePolicyGroup(self, organizationId: str, groupId: str):
+    def getOrganizationAdaptivePolicyGroup(self, organizationId: str, id: str):
         """
         **Returns an adaptive policy group**
         https://developer.cisco.com/meraki/api-v1/#!get-organization-adaptive-policy-group
 
         - organizationId (string): (required)
-        - groupId (string): (required)
+        - id (string): (required)
         """
 
         metadata = {
             'tags': ['organizations', 'configure', 'adaptivePolicy', 'groups'],
             'operation': 'getOrganizationAdaptivePolicyGroup'
         }
-        resource = f'/organizations/{organizationId}/adaptivePolicy/groups/{groupId}'
+        resource = f'/organizations/{organizationId}/adaptivePolicy/groups/{id}'
 
         return self._session.get(metadata, resource)
         
 
 
-    def updateOrganizationAdaptivePolicyGroup(self, organizationId: str, groupId: str, **kwargs):
+    def updateOrganizationAdaptivePolicyGroup(self, organizationId: str, id: str, **kwargs):
         """
         **Updates an adaptive policy group**
         https://developer.cisco.com/meraki/api-v1/#!update-organization-adaptive-policy-group
 
         - organizationId (string): (required)
-        - groupId (string): (required)
+        - id (string): (required)
         - name (string): Name of the group
         - sgt (integer): SGT value of the group
         - description (string): Description of the group
@@ -426,7 +426,7 @@ class Organizations(object):
             'tags': ['organizations', 'configure', 'adaptivePolicy', 'groups'],
             'operation': 'updateOrganizationAdaptivePolicyGroup'
         }
-        resource = f'/organizations/{organizationId}/adaptivePolicy/groups/{groupId}'
+        resource = f'/organizations/{organizationId}/adaptivePolicy/groups/{id}'
 
         body_params = ['name', 'sgt', 'description', 'policyObjects', ]
         payload = {k.strip(): v for k, v in kwargs.items() if k.strip() in body_params}
@@ -435,20 +435,20 @@ class Organizations(object):
         
 
 
-    def deleteOrganizationAdaptivePolicyGroup(self, organizationId: str, groupId: str):
+    def deleteOrganizationAdaptivePolicyGroup(self, organizationId: str, id: str):
         """
         **Deletes the specified adaptive policy group and any associated policies and references**
         https://developer.cisco.com/meraki/api-v1/#!delete-organization-adaptive-policy-group
 
         - organizationId (string): (required)
-        - groupId (string): (required)
+        - id (string): (required)
         """
 
         metadata = {
             'tags': ['organizations', 'configure', 'adaptivePolicy', 'groups'],
             'operation': 'deleteOrganizationAdaptivePolicyGroup'
         }
-        resource = f'/organizations/{organizationId}/adaptivePolicy/groups/{groupId}'
+        resource = f'/organizations/{organizationId}/adaptivePolicy/groups/{id}'
 
         return self._session.delete(metadata, resource)
         
@@ -2213,7 +2213,7 @@ class Organizations(object):
         - organizationId (string): (required)
         - name (string): Name of a policy object, unique within the organization (alphanumeric, space, dash, or underscore characters only)
         - category (string): Category of a policy object (one of: adaptivePolicy, network)
-        - type (string): Type of a policy object (one of: adaptivePolicyIpv4Cidr, fqdn, ipAndMask, cidr)
+        - type (string): Type of a policy object (one of: cidr, adaptivePolicyIpv4Cidr, fqdn, ipAndMask)
         - cidr (string): CIDR Value of a policy object (e.g. 10.11.12.1/24")
         - fqdn (string): Fully qualified domain name of policy object (e.g. "example.com")
         - mask (string): Mask of a policy object (e.g. "255.255.0.0")
