@@ -32,7 +32,7 @@ jobs:
           git pull  --rebase https://github.com/meraki/dashboard-api-python.git master
 
           git add .
-          git commit 'upstream changes'
+          git commit -m 'upstream changes'
 
       - name: Building SDK
         run: |
