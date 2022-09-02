@@ -28,8 +28,8 @@ jobs:
       - name: Pull Upstream Changes
         run: |
           rm -rf meraki
-          git config  user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git config  user.name "github-actions[bot]"
+          # git config  user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # git config  user.name "github-actions[bot]"
           git pull  --rebase https://github.com/meraki/dashboard-api-python.git master
 
           git add .
@@ -47,8 +47,8 @@ jobs:
 
       - name: Commit files
         run: |
-          git config  user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git config  user.name "github-actions[bot]"
+          # git config  user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # git config  user.name "github-actions[bot]"
           git add .
           git commit -m "Add changes" -a
 
