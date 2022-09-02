@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - master
+      - build
 
 env:
   BOUNDLESS_ORG_ID: 849070
