@@ -44,7 +44,7 @@ from meraki.config import (
     USE_ITERATOR_FOR_GET_PAGES,
 )
 
-__version__ = 'custom'
+__version__ = '1.0.0'
 
 
 class DashboardAPI(object):
