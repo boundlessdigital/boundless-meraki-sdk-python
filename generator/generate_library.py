@@ -460,7 +460,7 @@ def print_help():
 def main(inputs):
     api_key = os.environ.get('MERAKI_DASHBOARD_API_KEY')
     org_id = None
-    version_number = 'custom'
+    version_number = '1.0.0'
 
     try:
         opts, args = getopt.getopt(inputs, 'ho:k:v:')
