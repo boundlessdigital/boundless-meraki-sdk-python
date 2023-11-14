@@ -4,7 +4,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-aiohttp = "~=3.8.5"
+aiohttp = "~=3.8.6"
 requests = "~=2.25.1"
 meraki = "~=1.7.1"
 Jinja2 = "~=2.11.3"
